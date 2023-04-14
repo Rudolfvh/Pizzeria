@@ -15,8 +15,8 @@ public class PizzaDao implements Dao<Long, Pizza>{
 
     private static final PizzaDao INSTANCE = new PizzaDao();
     private static String SAVE_SQL = """
-            INSERT INTO pizza (pizza_id,name,cost)
-            values (?,?,?)
+            INSERT INTO pizza (name,cost)
+            values (?,?)
             """;
 
     private static String DELETE_SQL = """
@@ -78,8 +78,9 @@ public class PizzaDao implements Dao<Long, Pizza>{
     public boolean update(Pizza pizza) {
         try (var connection = ConnectionManager.get();
              var statement = connection.prepareStatement(UPDATE_SQL)) {
-            statement.setString(2,pizza.getName());
-            statement.setBigDecimal(3,pizza.getCost());
+            statement.setString(1,pizza.getName());
+            statement.setBigDecimal(2,pizza.getCost());
+            statement.setLong(3,pizza.getPizzaId());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoExeption(e);
@@ -106,12 +107,11 @@ public class PizzaDao implements Dao<Long, Pizza>{
         try (var connection = ConnectionManager.get();
              var statement = connection
                      .prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(2,pizza.getName());
-            statement.setBigDecimal(3,pizza.getCost());
+            statement.setString(1,pizza.getName());
+            statement.setBigDecimal(2,pizza.getCost());
 
             statement.executeUpdate();
 
-            statement.executeUpdate();
             var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next())
                 pizza.setPizzaId(generatedKeys.getLong("id"));

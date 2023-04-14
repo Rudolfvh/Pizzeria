@@ -16,8 +16,8 @@ public class CustomerDao implements Dao<Long, Customer>{
 
     private static final CustomerDao INSTANCE = new CustomerDao();
     private static String SAVE_SQL = """
-            INSERT INTO customer (customer_id, person_name, phone, location)
-            values (?,?,?,?)
+            INSERT INTO customer (person_name, phone, location)
+            values (?,?,?)
             """;
 
     private static String DELETE_SQL = """
@@ -82,9 +82,10 @@ public class CustomerDao implements Dao<Long, Customer>{
     public boolean update(Customer customer) {
         try (var connection = ConnectionManager.get();
              var statement = connection.prepareStatement(UPDATE_SQL)) {
-            statement.setString(3, customer.getPersonName());
-            statement.setString(4,customer.getPhone());
-            statement.setString(5,customer.getLocation());
+            statement.setString(1, customer.getPersonName());
+            statement.setString(2,customer.getPhone());
+            statement.setString(3,customer.getLocation());
+            statement.setLong(4,customer.getCustomerId());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoExeption(e);
@@ -117,7 +118,6 @@ public class CustomerDao implements Dao<Long, Customer>{
 
             statement.executeUpdate();
 
-            statement.executeUpdate();
             var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next())
                 customer.setCustomerId(generatedKeys.getLong("id"));

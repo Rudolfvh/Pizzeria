@@ -79,8 +79,9 @@ public class PizzeriaDao implements Dao<String, Pizzeria>{
     public boolean update(Pizzeria pizzeria) {
         try (var connection = ConnectionManager.get();
              var statement = connection.prepareStatement(UPDATE_SQL)) {
-            statement.setString(2,pizzeria.getCountry());
-            statement.setString(3,pizzeria.getCity());
+            statement.setString(1,pizzeria.getCountry());
+            statement.setString(2,pizzeria.getCity());
+            statement.setString(3,pizzeria.getCode());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoExeption(e);
@@ -107,12 +108,12 @@ public class PizzeriaDao implements Dao<String, Pizzeria>{
         try (var connection = ConnectionManager.get();
              var statement = connection
                      .prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1,pizzeria.getCode());
             statement.setString(2,pizzeria.getCountry());
             statement.setString(3,pizzeria.getCity());
 
             statement.executeUpdate();
 
-            statement.executeUpdate();
             var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next())
                 pizzeria.setCode(generatedKeys.getString("code"));

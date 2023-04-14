@@ -15,8 +15,8 @@ public class OrderDao implements Dao<Long, Orders>{
 
     private static final OrderDao INSTANCE = new OrderDao();
     private static String SAVE_SQL = """
-            INSERT INTO orders (order_id, customer_id, pizza_name_id, date_get)
-            values (?,?,?,?)
+            INSERT INTO orders (customer_id, pizza_name_id, date_get)
+            values (?,?,?)
             """;
 
     private static String DELETE_SQL = """
@@ -34,6 +34,8 @@ public class OrderDao implements Dao<Long, Orders>{
 
     private static String UPDATE_SQL = """
             UPDATE orders SET
+            customer_id = ?,
+            pizza_name_id = ?,
             date_get = ?
             WHERE order_id = ?;
             """;
@@ -79,7 +81,9 @@ public class OrderDao implements Dao<Long, Orders>{
     public boolean update(Orders orders) {
         try (var connection = ConnectionManager.get();
              var statement = connection.prepareStatement(UPDATE_SQL)) {
-            statement.setDate(4,orders.getDateGet());
+            statement.setLong(1,orders.getCustomerId());
+            statement.setLong(2,orders.getPizzaNameId());
+            statement.setDate(3,orders.getDateGet());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoExeption(e);
@@ -106,11 +110,10 @@ public class OrderDao implements Dao<Long, Orders>{
         try (var connection = ConnectionManager.get();
              var statement = connection
                      .prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setLong(2,orders.getCustomerId());
-            statement.setLong(3,orders.getPizzaNameId());
+            statement.setLong(1,orders.getCustomerId());
+            statement.setLong(2,orders.getPizzaNameId());
             statement.setDate(3,orders.getDateGet());
-
-            statement.executeUpdate();
+            statement.setLong(4,orders.getOrderid());
 
             statement.executeUpdate();
             var generatedKeys = statement.getGeneratedKeys();

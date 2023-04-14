@@ -15,8 +15,8 @@ public class DeliveryDao implements Dao<Long, Delivery>{
 
     private static final DeliveryDao INSTANCE = new DeliveryDao();
     private static String SAVE_SQL = """
-            INSERT INTO delivery_list (delivery_id, order_id, date_arrived, delivered_in_time, payment_method)
-            values (?,?,?,?,?)
+            INSERT INTO delivery_list (order_id, date_arrived, delivered_in_time, payment_method)
+            values (?,?,?,?)
             """;
 
     private static String DELETE_SQL = """
@@ -35,6 +35,7 @@ public class DeliveryDao implements Dao<Long, Delivery>{
 
     private static String UPDATE_SQL = """
             UPDATE delivery_list SET
+            order_id = ?,
             date_arrived = ?,
             delivered_in_time = ?,
             payment_method = ?
@@ -84,9 +85,11 @@ public class DeliveryDao implements Dao<Long, Delivery>{
     public boolean update(Delivery delivery) {
         try (var connection = ConnectionManager.get();
              var statement = connection.prepareStatement(UPDATE_SQL)) {
-            statement.setTimestamp(3, Timestamp.valueOf(delivery.getDateArrived()));
-            statement.setString(4,delivery.getDeliveredInTime());
-            statement.setString(5,delivery.getPaymentMethod());
+            statement.setLong(1,delivery.getOrderId());
+            statement.setTimestamp(2, Timestamp.valueOf(delivery.getDateArrived()));
+            statement.setString(3,delivery.getDeliveredInTime());
+            statement.setString(4,delivery.getPaymentMethod());
+            statement.setLong(5,delivery.getDeliveryId());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoExeption(e);
@@ -113,11 +116,10 @@ public class DeliveryDao implements Dao<Long, Delivery>{
         try (var connection = ConnectionManager.get();
              var statement = connection
                      .prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setTimestamp(3, Timestamp.valueOf(delivery.getDateArrived()));
-            statement.setString(4,delivery.getDeliveredInTime());
-            statement.setString(5,delivery.getPaymentMethod());
-
-            statement.executeUpdate();
+            statement.setLong(1,delivery.getOrderId());
+            statement.setTimestamp(2, Timestamp.valueOf(delivery.getDateArrived()));
+            statement.setString(3,delivery.getDeliveredInTime());
+            statement.setString(4,delivery.getPaymentMethod());
 
             statement.executeUpdate();
             var generatedKeys = statement.getGeneratedKeys();
