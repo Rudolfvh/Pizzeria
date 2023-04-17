@@ -1,18 +1,16 @@
 package dao;
 
-import entity.Customer;
-import entity.Delivery;
+import entity.User;
 import org.example.ConnectionManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CustomerDao implements Dao<Long, Customer>{
+public class CustomerDao implements Dao<Long, User>{
 
     private static final CustomerDao INSTANCE = new CustomerDao();
     private static String SAVE_SQL = """
@@ -45,11 +43,13 @@ public class CustomerDao implements Dao<Long, Customer>{
             WHERE customer_id = ?;
             """;
 
-    private Customer buildCustomer(ResultSet result) throws SQLException {
-        return new Customer(result.getLong("customer_id"),
+    private User buildCustomer(ResultSet result) throws SQLException {
+        return new User(result.getLong("customer_id"),
                 result.getString("person_name"),
+                result.getString("password"),
                 result.getString("phone"),
-                result.getString("location")
+                result.getString("location"),
+                result.getString("role")
         );
     }
     @Override
@@ -64,10 +64,10 @@ public class CustomerDao implements Dao<Long, Customer>{
     }
 
     @Override
-    public Optional<Customer> findById(Long id) {
+    public Optional<User> findById(Long id) {
         try (var connection = ConnectionManager.get();
              var statement = connection.prepareStatement(FIND_BY_ID)) {
-            Customer customer = null;
+            User customer = null;
             statement.setLong(1, id);
             var result = statement.executeQuery();
             if (result.next())
@@ -79,13 +79,13 @@ public class CustomerDao implements Dao<Long, Customer>{
     }
 
     @Override
-    public boolean update(Customer customer) {
+    public boolean update(User customer) {
         try (var connection = ConnectionManager.get();
              var statement = connection.prepareStatement(UPDATE_SQL)) {
             statement.setString(1, customer.getPersonName());
             statement.setString(2,customer.getPhone());
             statement.setString(3,customer.getLocation());
-            statement.setLong(4,customer.getCustomerId());
+            statement.setLong(4,customer.getUserId());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoExeption(e);
@@ -93,10 +93,10 @@ public class CustomerDao implements Dao<Long, Customer>{
     }
 
     @Override
-    public List<Customer> findAll() {
+    public List<User> findAll() {
         try (var connection = ConnectionManager.get();
              var statement = connection.prepareStatement(FIND_ALL)) {
-            List<Customer> customers = new ArrayList<>();
+            List<User> customers = new ArrayList<>();
             var result = statement.executeQuery();
             while (result.next())
                 customers.add(buildCustomer(result));
@@ -108,7 +108,7 @@ public class CustomerDao implements Dao<Long, Customer>{
     }
 
     @Override
-    public Customer save(Customer customer) {
+    public User save(User customer) {
         try (var connection = ConnectionManager.get();
              var statement = connection
                      .prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
@@ -120,7 +120,7 @@ public class CustomerDao implements Dao<Long, Customer>{
 
             var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next())
-                customer.setCustomerId(generatedKeys.getLong("id"));
+                customer.setUserId(generatedKeys.getLong("id"));
 
             return customer;
         } catch (SQLException e) {
