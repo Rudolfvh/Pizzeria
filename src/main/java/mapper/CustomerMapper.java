@@ -1,19 +1,19 @@
 package mapper;
 
-import dto.UserDto;
-import entity.User;
+import dto.CustomerDto;
+import entity.Customer;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class UserMapper implements Mapper<User, UserDto> {
+public class CustomerMapper implements Mapper<Customer, CustomerDto> {
 
-    private static final UserMapper INSTANCE = new UserMapper();
+    private static final CustomerMapper INSTANCE = new CustomerMapper();
 
     @Override
-    public UserDto mapFrom(User object) {
-        return UserDto.builder()
+    public CustomerDto mapFrom(Customer object) {
+        return CustomerDto.builder()
                 .id(object.getUserId())
                 .name(object.getPersonName())
                 .phone(object.getPhone())
@@ -22,7 +22,7 @@ public class UserMapper implements Mapper<User, UserDto> {
                 .build();
     }
 
-    public static UserMapper getInstance() {
+    public static CustomerMapper getInstance() {
         return INSTANCE;
     }
 }

@@ -6,7 +6,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class UserDto {
+public class CustomerDto {
     Integer id;
     String name;
     String phone;
