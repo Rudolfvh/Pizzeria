@@ -4,7 +4,7 @@ import entity.Customer;
 import entity.Role;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-import org.example.ConnectionManager;
+import utils.ConnectionManager;
 
 import java.sql.ResultSet;
 import java.util.List;
@@ -19,19 +19,39 @@ public class CustomerDao implements Dao<Integer, Customer> {
     private static final CustomerDao INSTANCE = new CustomerDao();
 
     private static final String SAVE_SQL =
-            "INSERT INTO customer (person_name,password, phone,location) VALUES (?, ?, ?, ?, ?, ?)";
+            "INSERT INTO users (person_name,password, phone, role) VALUES (?, ?, ?, ?)";
 
-    private static final String GET_BY_PASSWORD_SQL =
-            "SELECT * FROM users WHERE password = ?";
+    private static final String GET_BY_PHONE_AND_PASSWORD_SQL =
+            "SELECT * FROM users WHERE password = ? AND phone = ?";
+
 
 
     @SneakyThrows
-    public Optional<Customer> findByPassword(String password) {
+    public Integer find(String phone, String password) {
         try (var connection = ConnectionManager.get();
-             var preparedStatement = connection.prepareStatement(GET_BY_PASSWORD_SQL)) {
+             var preparedStatement = connection.prepareStatement(GET_BY_PHONE_AND_PASSWORD_SQL)) {
             preparedStatement.setString(1, password);
+            preparedStatement.setString(2, phone);
 
             var resultSet = preparedStatement.executeQuery();
+
+            Customer customer = null;
+            if (resultSet.next()) {
+                customer = buildEntity(resultSet);
+            }
+            return customer.getUserId();
+        }
+    }
+
+    @SneakyThrows
+    public Optional<Customer> findByPhoneAndPassword(String phone, String password) {
+        try (var connection = ConnectionManager.get();
+             var preparedStatement = connection.prepareStatement(GET_BY_PHONE_AND_PASSWORD_SQL)) {
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, phone);
+
+            var resultSet = preparedStatement.executeQuery();
+
             Customer customer = null;
             if (resultSet.next()) {
                 customer = buildEntity(resultSet);
@@ -43,12 +63,11 @@ public class CustomerDao implements Dao<Integer, Customer> {
 
     private Customer buildEntity(ResultSet resultSet) throws java.sql.SQLException {
         return Customer.builder()
-                .userId(resultSet.getObject("id", Integer.class))
-                .personName(resultSet.getObject("name", String.class))
+                .userId(resultSet.getObject("user_id", Integer.class))
+                .personName(resultSet.getObject("person_name", String.class))
                 .password(resultSet.getObject("password", String.class))
-                .location(resultSet.getObject("location", String.class))
                 .phone(resultSet.getObject("phone",String.class))
-                .role(Role.find(resultSet.getObject("role", String.class)).orElse(null))
+            //    .role(Role.find(resultSet.getObject("role", String.class)).orElse(null))
                 .build();
     }
 
@@ -59,14 +78,13 @@ public class CustomerDao implements Dao<Integer, Customer> {
              var preparedStatement = connection.prepareStatement(SAVE_SQL, RETURN_GENERATED_KEYS)) {
             preparedStatement.setObject(1, entity.getPersonName());
             preparedStatement.setObject(2, entity.getPassword());
-            preparedStatement.setObject(3, entity.getLocation());
-            preparedStatement.setObject(4, entity.getPhone());
-            preparedStatement.setObject(5, entity.getRole().name());
+            preparedStatement.setObject(3, entity.getPhone());
+            preparedStatement.setObject(4, 1);
             preparedStatement.executeUpdate();
 
             var generatedKeys = preparedStatement.getGeneratedKeys();
             generatedKeys.next();
-            entity.setUserId(generatedKeys.getObject("id", Integer.class));
+            entity.setUserId(generatedKeys.getObject("user_id", Integer.class));
 
             return entity;
         }

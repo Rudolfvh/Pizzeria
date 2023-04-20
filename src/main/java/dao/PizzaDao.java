@@ -1,9 +1,11 @@
 package dao;
 
+import entity.Customer;
 import entity.Pizza;
-import entity.Pizzeria;
-import org.example.ConnectionManager;
+import lombok.SneakyThrows;
+import utils.ConnectionManager;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,6 +33,12 @@ public class PizzaDao implements Dao<Long, Pizza>{
             FROM pizza p
             """;
 
+    private static String GET_BY_NAME_SQL = """
+            SELECT *
+            FROM pizza p
+            WHERE p.name = ?;
+            """;
+
     private static String UPDATE_SQL = """
             UPDATE pizza SET
             name = ?,
@@ -42,10 +50,26 @@ public class PizzaDao implements Dao<Long, Pizza>{
             WHERE pizza_id = ?;
             """;
 
+
+    @SneakyThrows
+    public Integer findByName(String name) {
+        try (var connection = ConnectionManager.get();
+             var preparedStatement = connection.prepareStatement(GET_BY_NAME_SQL)) {
+            preparedStatement.setString(1, name);
+
+            var resultSet = preparedStatement.executeQuery();
+            Pizza pizza = null;
+            if (resultSet.next()) {
+                pizza = buildPizza(resultSet);
+            }
+            return pizza.getPizzaId();
+        }
+    }
+
     private Pizza buildPizza(ResultSet result) throws SQLException {
-        return new Pizza(result.getLong("pizza_id"),
-                result.getString("name"),
-                result.getBigDecimal("cost")
+        return new Pizza(result.getObject("pizza_id", Integer.class),
+                result.getObject("name", String.class),
+                result.getObject("cost", BigDecimal.class)
         );
     }
     @Override
@@ -103,18 +127,19 @@ public class PizzaDao implements Dao<Long, Pizza>{
     }
 
     @Override
+    @SneakyThrows
     public Pizza save(Pizza pizza) {
         try (var connection = ConnectionManager.get();
-             var statement = connection
+             var preparedStatement = connection
                      .prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1,pizza.getName());
-            statement.setBigDecimal(2,pizza.getCost());
+            preparedStatement.setObject(1,pizza.getName());
+            preparedStatement.setObject(2,pizza.getCost());
 
-            statement.executeUpdate();
+            preparedStatement.executeUpdate();
 
-            var generatedKeys = statement.getGeneratedKeys();
-            if (generatedKeys.next())
-                pizza.setPizzaId(generatedKeys.getLong("id"));
+            var generatedKeys = preparedStatement.getGeneratedKeys();
+            generatedKeys.next();
+            pizza.setPizzaId(generatedKeys.getObject("pizza_id", Integer.class));
 
             return pizza;
         } catch (SQLException e) {

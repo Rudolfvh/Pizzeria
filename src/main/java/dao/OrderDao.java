@@ -1,9 +1,10 @@
 package dao;
 
+import entity.Customer;
 import entity.Orders;
-import entity.Pizza;
-import org.example.ConnectionManager;
+import utils.ConnectionManager;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,11 +46,11 @@ public class OrderDao implements Dao<Long, Orders>{
             """;
 
     private Orders buildOrder(ResultSet result) throws SQLException {
-        return new Orders(result.getLong("order_id"),
-                result.getLong("customer_id"),
-                result.getLong("pizza_name-id"),
-                result.getDate("date_get")
-        );
+        return Orders.builder()
+                .pizzaNameId(result.getObject("pizza_name_id", Integer.class))
+                .customerId(result.getObject("customer_id", Integer.class))
+                .dateGet(result.getObject("date_get", Date.class))
+                .build();
     }
     @Override
     public boolean delete(Long id) {
@@ -108,17 +109,16 @@ public class OrderDao implements Dao<Long, Orders>{
     @Override
     public Orders save(Orders orders) {
         try (var connection = ConnectionManager.get();
-             var statement = connection
+             var preparedStatement = connection
                      .prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setLong(1,orders.getCustomerId());
-            statement.setLong(2,orders.getPizzaNameId());
-            statement.setDate(3,orders.getDateGet());
-            statement.setLong(4,orders.getOrderid());
+            preparedStatement.setObject(1,orders.getCustomerId());
+            preparedStatement.setObject(2,orders.getPizzaNameId());
+            preparedStatement.setObject(3,orders.getDateGet());
 
-            statement.executeUpdate();
-            var generatedKeys = statement.getGeneratedKeys();
+            preparedStatement.executeUpdate();
+            var generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next())
-                orders.setOrderid(generatedKeys.getLong("id"));
+                orders.setOrderid(generatedKeys.getObject("pizza_name_id",Integer.class));
 
             return orders;
         } catch (SQLException e) {

@@ -1,7 +1,7 @@
 package dao;
 
 import entity.Delivery;
-import org.example.ConnectionManager;
+import utils.ConnectionManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

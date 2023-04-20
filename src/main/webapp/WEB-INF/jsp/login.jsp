@@ -7,6 +7,9 @@
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/login" method="post">
+    <label for="phone">Phone:
+        <input type="text" name="phone" id="phone" value="${param.phone}" required>
+    </label><br>
     <label for="password">Password:
         <input type="password" name="password" id="password" required>
     </label><br>

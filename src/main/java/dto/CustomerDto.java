@@ -10,6 +10,5 @@ public class CustomerDto {
     Integer id;
     String name;
     String phone;
-    String location;
     Role role;
 }

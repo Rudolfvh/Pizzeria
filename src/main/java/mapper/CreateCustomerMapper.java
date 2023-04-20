@@ -18,7 +18,6 @@ public class CreateCustomerMapper implements Mapper<CreateCustomerDto, Customer>
                 .personName(object.getName())
                 .password(object.getPassword())
                 .phone(object.getPhone())
-                .location(object.getLocation())
                 .role(Role.valueOf(object.getRole()))
                 .build();
     }

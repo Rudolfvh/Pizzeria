@@ -9,6 +9,5 @@ public class CreateCustomerDto {
     String name;
     String phone;
     String password;
-    String location;
     String role;
 }

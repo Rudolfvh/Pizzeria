@@ -14,10 +14,7 @@
         <input type="password" name="pwd" id="pwd">
     </label><br/>
     <label for="phone">Phone:
-        <input type="text" name="ph" id="phone">
-    </label><br/>
-    <label for="location">Phone:
-        <input type="text" name="loc" id="location">
+        <input type="text" name="phone" id="phone">
     </label><br/>
     <select name="role" id="role">
         <c:forEach var="role" items="${requestScope.roles}">

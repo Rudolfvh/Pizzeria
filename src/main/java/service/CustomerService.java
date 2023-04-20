@@ -22,9 +22,13 @@ public class CustomerService {
     private final CreateCustomerMapper createCustomerMapper = CreateCustomerMapper.getInstance();
     private final CustomerMapper customerMapper = CustomerMapper.getInstance();
 
-    public Optional<CustomerDto> login(String password) {
-        return customerDao.findByPassword(password)
+    public Optional<CustomerDto> login(String phone ,String password) {
+        return customerDao.findByPhoneAndPassword(phone,password)
                 .map(customerMapper::mapFrom);
+    }
+
+    public Integer find(String phone ,String password) {
+        return customerDao.find(phone,password);
     }
 
     public Integer create(CreateCustomerDto createCustomerDto) {

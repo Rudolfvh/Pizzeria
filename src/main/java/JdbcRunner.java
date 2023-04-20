@@ -1,5 +1,3 @@
-package org.example;
-
 import dao.CustomerDao;
 
 import java.sql.*;
