@@ -80,7 +80,7 @@ public class CustomerDao implements Dao<Integer, Customer> {
             preparedStatement.setObject(1, entity.getPersonName());
             preparedStatement.setObject(2, entity.getPassword());
             preparedStatement.setObject(3, entity.getPhone());
-            preparedStatement.setObject(4, 1);
+            preparedStatement.setObject(4, Role.valueOf(entity.getRole().toString()).getId());
             preparedStatement.executeUpdate();
 
             var generatedKeys = preparedStatement.getGeneratedKeys();
