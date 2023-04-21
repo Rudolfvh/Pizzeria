@@ -1,6 +1,6 @@
 package servlet;
 
-import dto.CreateCustomerDto;
+
 import dto.CreateOrderDto;
 import exception.ValidationException;
 import jakarta.servlet.ServletException;
@@ -13,10 +13,11 @@ import service.OrderService;
 import service.PizzaService;
 import utils.JspHelper;
 
+
+
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet {
@@ -32,9 +33,12 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String phone = req.getSession().getAttribute("phone").toString();
+        String password = req.getSession().getAttribute("password").toString();
+
         var orderDto = CreateOrderDto.builder()
                 .pizzaNameId(pizzaService.find(req.getParameter("pizza_name")))
-                .customerId(customerService.find(req.getParameter("phone"),req.getParameter("password")))
+                .customerId(customerService.find(phone,password))
                 .dateGet(Date.valueOf(LocalDate.now()))
                 .build();
         try {

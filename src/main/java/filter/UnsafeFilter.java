@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.LogRecord;
 
-//@WebFilter("/admin")
+@WebFilter("/admin")
 public class UnsafeFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException, ServletException, IOException {
         var user = (CustomerDto)((HttpServletRequest) servletRequest).getSession()

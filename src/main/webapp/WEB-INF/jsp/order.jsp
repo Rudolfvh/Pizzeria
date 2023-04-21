@@ -20,6 +20,7 @@
     <input type="radio" name="pizza_name" value="Цыплёнок дорблю" checked />Цыплёнок дорблю
     <input type="radio" name="pizza_name" value="Гавайская" checked />Гавайская
     <br>
+
     <button type="submit">Order</button>
 </form>
 <body>

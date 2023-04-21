@@ -16,6 +16,7 @@ public class CustomerMapper implements Mapper<Customer, CustomerDto> {
         return CustomerDto.builder()
                 .id(object.getUserId())
                 .name(object.getPersonName())
+                .password(object.getPassword())
                 .phone(object.getPhone())
                 .role(object.getRole())
                 .build();

@@ -9,6 +9,7 @@ import lombok.Value;
 public class CustomerDto {
     Integer id;
     String name;
+    String password;
     String phone;
     Role role;
 }

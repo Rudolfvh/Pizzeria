@@ -39,6 +39,7 @@ public class CustomerDao implements Dao<Integer, Customer> {
             if (resultSet.next()) {
                 customer = buildEntity(resultSet);
             }
+            System.out.println(customer.getUserId());
             return customer.getUserId();
         }
     }

@@ -39,7 +39,8 @@ public class LoginServlet extends HttpServlet {
 
     @SneakyThrows
     private void onLoginSuccess(CustomerDto customer, HttpServletRequest req, HttpServletResponse resp) {
-        req.getSession().setAttribute("user", customer);
+        req.getSession().setAttribute("phone", customer.getPhone());
+        req.getSession().setAttribute("password", customer.getPassword());
         resp.sendRedirect("/order");
     }
 }
