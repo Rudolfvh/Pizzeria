@@ -4,10 +4,8 @@ import entity.Customer;
 import entity.Orders;
 import utils.ConnectionManager;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +47,7 @@ public class OrderDao implements Dao<Long, Orders>{
         return Orders.builder()
                 .pizzaNameId(result.getObject("pizza_name_id", Integer.class))
                 .customerId(result.getObject("customer_id", Integer.class))
-                .dateGet(result.getObject("date_get", Date.class))
+                .dateGet(result.getObject("date_get", LocalDateTime.class))
                 .build();
     }
     @Override
@@ -84,7 +82,7 @@ public class OrderDao implements Dao<Long, Orders>{
              var statement = connection.prepareStatement(UPDATE_SQL)) {
             statement.setLong(1,orders.getCustomerId());
             statement.setLong(2,orders.getPizzaNameId());
-            statement.setDate(3,orders.getDateGet());
+            statement.setTimestamp(3, Timestamp.valueOf(orders.getDateGet()));
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DaoExeption(e);

@@ -5,8 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -16,5 +15,5 @@ public class Orders {
     private Integer orderid;
     private Integer customerId;
     private Integer pizzaNameId;
-    private Date dateGet;
+    private LocalDateTime dateGet;
 }
