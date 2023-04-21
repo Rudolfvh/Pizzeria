@@ -23,6 +23,9 @@
 
     <button type="submit">Order</button>
 </form>
+<form action="${pageContext.request.contextPath}/logout" method="get">
+    <button type="submit">LogOut</button>
+</form>
 <body>
 
 </body>

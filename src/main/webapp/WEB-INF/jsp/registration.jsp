@@ -23,6 +23,9 @@
         </c:forEach>
     <input type="submit" value="Send">
 </form>
+<form action="${pageContext.request.contextPath}/login" method="get">
+    <button type="submit">Back</button>
+</form>
 <c:if test="${not empty requestScope.errors}">
     <div style="color: red">
         <c:forEach var="error" items="${requestScope.errors}">
