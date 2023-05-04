@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.LogRecord;
 
-@WebFilter("/*")
+//@WebFilter("/*")
 public class CharsetFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException, IOException, ServletException {
         servletRequest.setCharacterEncoding(StandardCharsets.UTF_8.name());

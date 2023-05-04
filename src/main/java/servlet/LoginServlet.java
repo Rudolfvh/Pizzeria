@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private final CustomerService customerService = CustomerService.getInstance();
+    private final CustomerService customerService = CustomerService.getINSTANCE();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,6 +41,6 @@ public class LoginServlet extends HttpServlet {
     private void onLoginSuccess(CustomerDto customer, HttpServletRequest req, HttpServletResponse resp) {
         req.getSession().setAttribute("phone", customer.getPhone());
         req.getSession().setAttribute("password", customer.getPassword());
-        resp.sendRedirect("/order");
+        resp.sendRedirect("/menu");
     }
 }

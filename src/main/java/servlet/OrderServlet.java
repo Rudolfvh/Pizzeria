@@ -24,8 +24,8 @@ import java.time.LocalDateTime;
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet {
 
-    private final CustomerService customerService = CustomerService.getInstance();
-    private final PizzaService pizzaService = PizzaService.getInstance();
+    private final CustomerService customerService = CustomerService.getINSTANCE();
+    private final PizzaService pizzaService = PizzaService.getINSTANCE();
     private final OrderService orderService = OrderService.getInstance();
 
     @Override
@@ -39,8 +39,8 @@ public class OrderServlet extends HttpServlet {
         String password = req.getSession().getAttribute("password").toString();
 
         var orderDto = CreateOrderDto.builder()
-                .pizzaNameId(pizzaService.find(req.getParameter("pizza_name")))
-                .customerId(customerService.find(phone,password))
+                .pizzaNameId(pizzaService.find(req.getParameter("pizza_name")).intValue())
+                .customerId(customerService.find(phone,password).intValue())
                 .dateGet(Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime())
                 .build();
         try {

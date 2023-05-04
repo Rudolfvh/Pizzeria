@@ -4,6 +4,7 @@ import dao.CustomerDao;
 import dto.CreateCustomerDto;
 import dto.CustomerDto;
 import exception.ValidationException;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mapper.CreateCustomerMapper;
 import mapper.CustomerMapper;
@@ -15,6 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
 public class CustomerService {
+    @Getter
     private static final CustomerService INSTANCE = new CustomerService();
 
     private final CreateCustomerValidation createCustomerValidation = CreateCustomerValidation.getInstance();
@@ -22,26 +24,21 @@ public class CustomerService {
     private final CreateCustomerMapper createCustomerMapper = CreateCustomerMapper.getInstance();
     private final CustomerMapper customerMapper = CustomerMapper.getInstance();
 
-    public Optional<CustomerDto> login(String phone ,String password) {
-        return customerDao.findByPhoneAndPassword(phone,password)
-                .map(customerMapper::mapFrom);
-    }
-
-    public Integer find(String phone ,String password) {
-        return customerDao.find(phone,password);
-    }
-
-    public Integer create(CreateCustomerDto createCustomerDto) {
-        var validationResult = createCustomerValidation.isValid(createCustomerDto);
+    public Long create(CreateCustomerDto customerDto) {
+        var validationResult = createCustomerValidation.isValid(customerDto);
         if (!validationResult.isValid()) {
             throw new ValidationException(validationResult.getErrors());
         }
-        var customerEntity = createCustomerMapper.mapFrom(createCustomerDto);
+        var customerEntity = createCustomerMapper.mapFrom(customerDto);
         customerDao.save(customerEntity);
         return customerEntity.getUserId();
     }
+    public Long find(String phone, String password){
+        return customerDao.findId(phone,password);
+    }
 
-    public static CustomerService getInstance() {
-        return INSTANCE;
+    public Optional<CustomerDto> login(String phone, String password) {
+        return customerDao.findByPhoneAndPassword(phone, password)
+                .map(customerMapper::mapFrom);
     }
 }

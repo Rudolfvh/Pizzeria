@@ -15,7 +15,7 @@ public class CreateOrderMapper implements Mapper<CreateOrderDto, Orders> {
     public Orders mapFrom(CreateOrderDto object) {
         return Orders.builder()
                 .customerId(object.getCustomerId())
-                .pizzaNameId(object.getPizzaNameId())
+                .pizzaId(object.getPizzaNameId())
                 .dateGet(object.getDateGet())
                 .build();
     }

@@ -14,7 +14,7 @@ public class PizzaMapper implements Mapper<Pizza, PizzaDto> {
     @Override
     public PizzaDto mapFrom(Pizza object) {
         return PizzaDto.builder()
-                .pizzaId(object.getPizzaId())
+                .pizzaId(object.getPizzaId().intValue())
                 .name(object.getName())
                 .cost(object.getCost())
                 .build();

@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum Role {
-    USER(2),
-    ADMIN(1);
+    USER(1),
+    ADMIN(2);
 
     public static Optional<Role> find(String role) {
         return Arrays.stream(values())

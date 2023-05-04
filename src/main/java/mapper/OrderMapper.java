@@ -15,7 +15,7 @@ public class OrderMapper implements Mapper<Orders, OrderDto> {
     public OrderDto mapFrom(Orders object) {
         return OrderDto.builder()
                 .customerId(object.getCustomerId())
-                .pizzaNameId(object.getPizzaNameId())
+                .pizzaNameId(object.getPizzaId())
                 .dateGet(object.getDateGet())
                 .build();
     }

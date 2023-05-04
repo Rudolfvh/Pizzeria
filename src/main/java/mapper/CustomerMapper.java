@@ -14,7 +14,7 @@ public class CustomerMapper implements Mapper<Customer, CustomerDto> {
     @Override
     public CustomerDto mapFrom(Customer object) {
         return CustomerDto.builder()
-                .id(object.getUserId())
+                .id(object.getUserId().intValue())
                 .name(object.getPersonName())
                 .password(object.getPassword())
                 .phone(object.getPhone())
