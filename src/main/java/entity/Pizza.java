@@ -11,8 +11,6 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@ToString(exclude = "pizza")
-@EqualsAndHashCode(exclude = "pizza")
 @Table(name = "pizza", schema = "public")
 public class Pizza {
     @Id
@@ -25,6 +23,4 @@ public class Pizza {
     @Column(name = "cost")
     private BigDecimal cost;
 
-    @OneToMany(mappedBy = "pizza")
-    private List<Orders> pizza;
 }

@@ -10,8 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@ToString(exclude = "customer")
-@EqualsAndHashCode(exclude = "customer")
 @Table(name = "users", schema = "public")
 public class Customer {
     @Id
@@ -30,6 +28,4 @@ public class Customer {
     @Column(name = "role")
     private Role role;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Orders> customer;
 }

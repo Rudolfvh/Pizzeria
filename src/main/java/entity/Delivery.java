@@ -20,9 +20,8 @@ public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deliveryId;
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Orders orders;
+    @Column(name = "order_id")
+    private Integer orderId;
 
     @Column(name = "date_arrived")
     private LocalDateTime dateArrived;
@@ -32,10 +31,5 @@ public class Delivery {
 
     @Column(name = "payment_method")
     private String paymentMethod;
-
-    public void setOrder(Orders orders){
-        this.orders = orders;
-        this.orders.getDeliveries().add(this);
-    }
 
 }

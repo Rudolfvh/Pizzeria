@@ -36,7 +36,7 @@ public class DeliveryDao implements Dao<Long, Delivery>{
 
     public List<Delivery> findAllByOrderId(Long orderId) {
         var deliveries = findAll();
-        deliveries.removeIf(delivery -> !delivery.getOrders().getOrderid().equals(orderId));
+        deliveries.removeIf(delivery -> !delivery.getOrderId().equals(orderId));
         return deliveries;
     }
 }
