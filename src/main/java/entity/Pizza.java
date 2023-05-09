@@ -3,8 +3,10 @@ package entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,7 +14,9 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "pizza", schema = "public")
-public class Pizza {
+@EqualsAndHashCode(exclude = "orders")
+@ToString(exclude = "orders")
+public class Pizza implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pizzaId;
@@ -22,5 +26,8 @@ public class Pizza {
 
     @Column(name = "cost")
     private BigDecimal cost;
+
+    @OneToMany(mappedBy = "pizza")
+    private Set<Orders> orders = new HashSet<>();
 
 }

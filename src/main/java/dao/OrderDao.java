@@ -35,7 +35,7 @@ public class OrderDao implements Dao<Long, Orders>{
 
     public List<Orders> findAllByCustomerId(Long customerId) {
         var orders = findAll();
-        orders.removeIf(order -> !order.getCustomerId().equals(customerId));
+        orders.removeIf(order -> !order.getCustomer().getUserId().equals(customerId));
         return orders;
     }
 }

@@ -16,9 +16,7 @@ import utils.JspHelper;
 
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @WebServlet("/order")
@@ -39,8 +37,8 @@ public class OrderServlet extends HttpServlet {
         String password = req.getSession().getAttribute("password").toString();
 
         var orderDto = CreateOrderDto.builder()
-                .pizzaNameId(pizzaService.find(req.getParameter("pizza_name")).intValue())
-                .customerId(customerService.find(phone,password).intValue())
+                .pizza(pizzaService.find(req.getParameter("pizza_name")).get())
+                .customer(customerService.find(phone,password).get())
                 .dateGet(Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime())
                 .build();
         try {

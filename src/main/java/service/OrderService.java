@@ -24,15 +24,15 @@ public class OrderService {
         return orderEntity.getOrderid();
     }
 
-//    public List<OrderDto> findAllByCustomerId(Long customerId) {
-//        return orderDao.findAllByCustomerId(customerId).stream().map(
-//                order -> new OrderDto(
-//                        order.getCustomerId(),
-//                        order.getPizzaId(),
-//                        order.getDateGet()
-//                )
-//        ).collect(Collectors.toList());
-//    }
+    public List<OrderDto> findAllByCustomerId(Long customerId) {
+        return orderDao.findAllByCustomerId(customerId).stream().map(
+                order -> new OrderDto(
+                        order.getCustomer(),
+                        order.getPizza(),
+                        order.getDateGet()
+                )
+        ).collect(Collectors.toList());
+    }
     public static OrderService getInstance() {
         return INSTANCE;
     }

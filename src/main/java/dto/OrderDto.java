@@ -1,15 +1,19 @@
 package dto;
 
+import entity.Customer;
+import entity.Pizza;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
-import java.sql.Date;
+
 import java.time.LocalDateTime;
 
 @Value
 @Builder
+@AllArgsConstructor
 public class OrderDto {
-     Integer customerId;
-     Integer pizzaNameId;
+     Customer customer;
+     Pizza pizza;
      LocalDateTime dateGet;
 }

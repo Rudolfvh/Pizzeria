@@ -3,6 +3,7 @@ package service;
 import dao.CustomerDao;
 import dto.CreateCustomerDto;
 import dto.CustomerDto;
+import entity.Customer;
 import exception.ValidationException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +34,8 @@ public class CustomerService {
         customerDao.save(customerEntity);
         return customerEntity.getUserId();
     }
-    public Long find(String phone, String password){
-        return customerDao.findId(phone,password);
+    public Optional<Customer> find(String phone, String password){
+        return customerDao.findByPhoneAndPassword(phone,password);
     }
 
     public Optional<CustomerDto> login(String phone, String password) {

@@ -3,7 +3,10 @@ package entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -11,7 +14,9 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
-public class Customer {
+@EqualsAndHashCode(exclude = "orders")
+@ToString(exclude = "orders")
+public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -27,5 +32,8 @@ public class Customer {
 
     @Column(name = "role")
     private Role role;
+
+    @OneToMany(mappedBy = "customer")
+    private Set<Orders> orders = new HashSet<>();
 
 }

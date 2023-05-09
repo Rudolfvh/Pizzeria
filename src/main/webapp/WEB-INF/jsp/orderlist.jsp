@@ -15,7 +15,8 @@
 <ul>
   <c:if test="${not empty requestScope.orderlist}">
     <c:forEach var="order" items="${requestScope.orderlist}">
-      <li>${fn:toLowerCase(order.pizzaNameId)}</li>
+      <li>${fn:toLowerCase(order.getPizza().getName())}</li>
+      <li>${fn:toLowerCase(order.getDateGet())}</li>
     </c:forEach>
   </c:if>
 </ul>

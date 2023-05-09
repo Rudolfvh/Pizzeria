@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebFilter("/*")
 public class  AuthorizationFilter implements Filter {
 
-    private static final Set<String> PUBLIC_PATH = Set.of("/login", "/registration", "/order", "/menu");
+    private static final Set<String> PUBLIC_PATH = Set.of("/login", "/registration", "/order", "/menu", "/orderlist");
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException, ServletException, IOException {
         var uri = ((HttpServletRequest) servletRequest).getRequestURI();
