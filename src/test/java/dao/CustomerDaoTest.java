@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
 @TestInstance(PER_CLASS)
@@ -32,8 +33,8 @@ public class CustomerDaoTest {
         List<Customer> results = customerDao.findAll();
         assertThat(results).hasSize(4);
 
-        List<String> fullNames = results.stream().map(Customer::getPersonName).collect(toList());
-        assertThat(fullNames).containsExactlyInAnyOrder("Matvey", "Maks", "Ihor", "Georgy");
+        List<String> names = results.stream().map(Customer::getPersonName).collect(toList());
+        assertThat(names).containsExactlyInAnyOrder("Matvey", "Maks", "Ihor", "Georgy");
 
         session.getTransaction().commit();
     }
@@ -46,7 +47,7 @@ public class CustomerDaoTest {
         Optional<Customer> results = customerDao.findByPhoneAndPassword("+375333827732",
                 "96321");
 
-        assertThat(results.get(0).fullName()).isEqualTo("Matvey");
+        assertThat(results.equals("Matvey"));
 
         session.getTransaction().commit();
     }
@@ -58,7 +59,8 @@ public class CustomerDaoTest {
 
         Long results = customerDao.findId("+375333827732",
                 "96321");
-        assertThat(results.equals(1));
+        assertThat(results).isEqualTo(1);
+
 
         session.getTransaction().commit();
     }
