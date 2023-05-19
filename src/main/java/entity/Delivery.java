@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Builder
 @Table(name = "delivery", schema = "public")
-public class Delivery implements Serializable {
+public class Delivery implements Serializable, BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

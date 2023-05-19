@@ -1,13 +1,13 @@
 package service;
 
 
-import dao.OrderDao;
-import dto.CreateCustomerDto;
+import dao.OrderRepository;
 import dto.CreateOrderDto;
 import dto.OrderDto;
-import exception.ValidationException;
 import mapper.CreateOrderMapper;
 import mapper.OrderMapper;
+import org.hibernate.SessionFactory;
+import utils.HibernateUtil;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,25 +15,23 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     private static final OrderService INSTANCE = new OrderService();
-    private final OrderDao orderDao = OrderDao.getINSTANCE();
     private final CreateOrderMapper createOrderMapper = CreateOrderMapper.getInstance();
-
-    public Long create(CreateOrderDto orderDto) {
+    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private final OrderMapper orderMapper = OrderMapper.getInstance();
+    private final OrderRepository orderRepository = new OrderRepository(HibernateUtil
+            .getSessionFromFactory(sessionFactory));
+    public OrderDto create(CreateOrderDto orderDto) {
         var orderEntity = createOrderMapper.mapFrom(orderDto);
-        orderDao.save(orderEntity);
-        return orderEntity.getOrderid();
+        return orderMapper.mapFrom(orderRepository.save(orderEntity));
     }
 
-    public List<OrderDto> findAllByCustomerId(Long customerId) {
-        return orderDao.findAllByCustomerId(customerId).stream().map(
-                order -> new OrderDto(
-                        order.getCustomer(),
-                        order.getPizza(),
-                        order.getDateGet()
-                )
-        ).collect(Collectors.toList());
+    public List<OrderDto> findByCustomerId(Long customerId) {
+        return orderRepository.findAll().stream()
+                .filter(i -> i.getCustomer().getUserId() == customerId)
+                .map(orderMapper::mapFrom).collect(Collectors.toList());
     }
     public static OrderService getInstance() {
         return INSTANCE;
     }
 }
+

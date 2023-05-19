@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "orders", schema = "public")
-public class Orders implements Serializable {
+public class Orders implements Serializable, BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
@@ -30,4 +30,13 @@ public class Orders implements Serializable {
     @Column(name = "date_get")
     private LocalDateTime dateGet;
 
+    @Override
+    public Long getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(Long id) {
+
+    }
 }

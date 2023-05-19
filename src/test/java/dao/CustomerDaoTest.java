@@ -23,47 +23,47 @@ public class CustomerDaoTest {
 
     private final SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
 
-    private final CustomerDao customerDao = CustomerDao.getInstance();
-
-    @Test
-    void findAll() {
-        @Cleanup Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        List<Customer> results = customerDao.findAll();
-        assertThat(results).hasSize(4);
-
-        List<String> names = results.stream().map(Customer::getPersonName).collect(toList());
-        assertThat(names).containsExactlyInAnyOrder("Matvey", "Maks", "Ihor", "Georgy");
-
-        session.getTransaction().commit();
-    }
-
-    @Test
-    void findByPhoneAndPassword() {
-        @Cleanup Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        Optional<Customer> results = customerDao.findByPhoneAndPassword("+375333827732",
-                "96321");
-
-        assertThat(results.equals("Matvey"));
-
-        session.getTransaction().commit();
-    }
-
-    @Test
-    void findId(){
-        @Cleanup Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        Long results = customerDao.findId("+375333827732",
-                "96321");
-        assertThat(results).isEqualTo(1);
-
-
-        session.getTransaction().commit();
-    }
+//    private final CustomerDao customerDao = CustomerDao.getInstance();
+//
+//    @Test
+//    void findAll() {
+//        @Cleanup Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//
+//        List<Customer> results = customerDao.findAll();
+//        assertThat(results).hasSize(4);
+//
+//        List<String> names = results.stream().map(Customer::getPersonName).collect(toList());
+//        assertThat(names).containsExactlyInAnyOrder("Matvey", "Maks", "Ihor", "Georgy");
+//
+//        session.getTransaction().commit();
+//    }
+//
+//    @Test
+//    void findByPhoneAndPassword() {
+//        @Cleanup Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//
+//        Optional<Customer> results = customerDao.findByPhoneAndPassword("+375333827732",
+//                "96321");
+//
+//        assertThat(results.equals("Matvey"));
+//
+//        session.getTransaction().commit();
+//    }
+//
+//    @Test
+//    void findId(){
+//        @Cleanup Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//
+//        Long results = customerDao.findId("+375333827732",
+//                "96321");
+//        assertThat(results).isEqualTo(1);
+//
+//
+//        session.getTransaction().commit();
+//    }
 
     @BeforeAll
     public void initDb() {

@@ -1,11 +1,11 @@
 package servlet;
 
-import dao.CustomerDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.CustomerService;
 import service.OrderService;
 import utils.JspHelper;
 
@@ -20,12 +20,13 @@ public class OrderListServlet extends HttpServlet {
         resp.setContentType("text/html");
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
-        var customerDao = CustomerDao.getInstance();
+        var customerService = CustomerService.getINSTANCE();
         String phone = req.getSession().getAttribute("phone").toString();
         String password = req.getSession().getAttribute("password").toString();
 
-        Long customerId = customerDao.findId(phone,password);
-        req.setAttribute("orderlist", OrderService.getInstance().findAllByCustomerId(customerId));
+        Long customerId = customerService.find(phone,password).get().getId();
+        req.setAttribute("orderlist", OrderService.getInstance().findByCustomerId(customerId));
         req.getRequestDispatcher(JspHelper.getPath("orderlist")).forward(req, resp);
     }
 }
+

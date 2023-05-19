@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "users", schema = "public")
 @EqualsAndHashCode(exclude = "orders")
 @ToString(exclude = "orders")
-public class Customer implements Serializable {
+public class Customer implements Serializable, BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -36,4 +36,13 @@ public class Customer implements Serializable {
     @OneToMany(mappedBy = "customer")
     private Set<Orders> orders = new HashSet<>();
 
+    @Override
+    public Long getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(Long id) {
+
+    }
 }
