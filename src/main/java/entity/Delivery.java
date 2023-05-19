@@ -33,4 +33,13 @@ public class Delivery implements Serializable, BaseEntity<Long> {
     @Column(name = "payment_method")
     private String paymentMethod;
 
+    @Override
+    public Long getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(Long id) {
+
+    }
 }
