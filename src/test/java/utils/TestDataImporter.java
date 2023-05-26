@@ -1,7 +1,7 @@
 package utils;
 
 import entity.Customer;
-import entity.Orders;
+import entity.Order;
 import entity.Pizza;
 import entity.Role;
 import lombok.Cleanup;
@@ -71,11 +71,11 @@ public class TestDataImporter {
         return pizza;
     }
 
-    private Orders saveOrders(Session session,
-                              Customer customer,
-                              Pizza pizza,
-                              LocalDateTime date){
-        Orders order = Orders.builder().customer(customer)
+    private Order saveOrders(Session session,
+                             Customer customer,
+                             Pizza pizza,
+                             LocalDateTime date){
+        Order order = Order.builder().customer(customer)
                 .pizza(pizza)
                 .dateGet(date).build();
         session.save(order);

@@ -28,7 +28,7 @@ public class Pizza implements Serializable, BaseEntity<Long> {
     private BigDecimal cost;
 
     @OneToMany(mappedBy = "pizza")
-    private Set<Orders> orders = new HashSet<>();
+    private Set<Order> orders = new HashSet<>();
 
     @Override
     public Long getId() {

@@ -1,11 +1,11 @@
 package entity;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +13,8 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "orders", schema = "public")
-public class Orders implements Serializable, BaseEntity<Long> {
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Customers")
+public class Order implements Serializable, BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")

@@ -1,11 +1,11 @@
 package entity;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -16,6 +16,7 @@ import java.util.Set;
 @Table(name = "users", schema = "public")
 @EqualsAndHashCode(exclude = "orders")
 @ToString(exclude = "orders")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Customers")
 public class Customer implements Serializable, BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +35,7 @@ public class Customer implements Serializable, BaseEntity<Long> {
     private Role role;
 
     @OneToMany(mappedBy = "customer")
-    private Set<Orders> orders = new HashSet<>();
+    private Set<Order> orders = new HashSet<>();
 
     @Override
     public Long getId() {
