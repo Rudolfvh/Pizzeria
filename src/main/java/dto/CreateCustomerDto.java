@@ -13,7 +13,7 @@ public class CreateCustomerDto {
     @NotNull
     @NotBlank
     String name;
-    @Pattern(regexp = "^\\+\\d{9,14}")
+    @NotEmpty
     String phone;
     @NotNull
     String password;
