@@ -1,6 +1,6 @@
 package dao;
 
-import entity.Delivery;
+import spring.entity.Delivery;
 
 import javax.persistence.EntityManager;
 

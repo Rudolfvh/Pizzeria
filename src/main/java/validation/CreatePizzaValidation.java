@@ -1,7 +1,7 @@
 package validation;
 
-import dto.CreatePizzaDto;
-import entity.Role;
+import spring.dto.CreatePizzaDto;
+import spring.entity.Role;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;

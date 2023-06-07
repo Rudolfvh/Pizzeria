@@ -1,9 +1,9 @@
 package utils;
 
-import entity.Customer;
-import entity.Order;
-import entity.Pizza;
-import entity.Role;
+import spring.entity.Customer;
+import spring.entity.Order;
+import spring.entity.Pizza;
+import spring.entity.Role;
 import lombok.Cleanup;
 import lombok.experimental.UtilityClass;
 import org.hibernate.Session;

@@ -1,7 +1,7 @@
 package validation;
 
-import dto.CreateCustomerDto;
-import entity.Role;
+import spring.dto.CreateCustomerDto;
+import spring.entity.Role;
 import lombok.NoArgsConstructor;
 
 import static lombok.AccessLevel.PRIVATE;

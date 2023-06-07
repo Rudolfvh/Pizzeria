@@ -5,9 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.CustomerService;
-import service.OrderService;
-import utils.JspHelper;
+import spring.service.CustomerService;
+import spring.service.OrderService;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

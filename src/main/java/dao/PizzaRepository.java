@@ -1,6 +1,6 @@
 package dao;
 
-import entity.Pizza;
+import spring.entity.Pizza;
 
 import javax.persistence.EntityManager;
 

@@ -1,6 +1,6 @@
 package dao;
 
-import entity.BaseEntity;
+import spring.entity.BaseEntity;
 
 import java.io.Serializable;
 import java.util.List;

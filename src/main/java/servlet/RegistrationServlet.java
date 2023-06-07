@@ -1,15 +1,14 @@
 package servlet;
 
-import dto.CreateCustomerDto;
-import entity.Role;
-import exception.ValidationException;
+import spring.dto.CreateCustomerDto;
+import spring.entity.Role;
+import spring.exception.ValidationException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.CustomerService;
-import utils.JspHelper;
+import spring.service.CustomerService;
 
 import java.io.IOException;
 

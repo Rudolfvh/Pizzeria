@@ -1,14 +1,13 @@
 package servlet;
 
-import dto.CustomerDto;
+import spring.dto.CustomerDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
-import service.CustomerService;
-import utils.JspHelper;
+import spring.service.CustomerService;
 
 import java.io.IOException;
 

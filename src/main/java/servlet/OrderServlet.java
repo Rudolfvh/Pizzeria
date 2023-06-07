@@ -1,18 +1,16 @@
 package servlet;
 
 
-import dto.CreateOrderDto;
-import exception.ValidationException;
+import spring.dto.CreateOrderDto;
+import spring.exception.ValidationException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import service.CustomerService;
-import service.OrderService;
-import service.PizzaService;
-import utils.JspHelper;
-
+import spring.service.CustomerService;
+import spring.service.OrderService;
+import spring.service.PizzaService;
 
 
 import java.io.IOException;

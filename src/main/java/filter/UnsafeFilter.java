@@ -1,13 +1,12 @@
 package filter;
 
-import dto.CustomerDto;
+import spring.dto.CustomerDto;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.logging.LogRecord;
 
 @WebFilter("/admin")
 public class UnsafeFilter implements Filter {

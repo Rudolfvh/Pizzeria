@@ -1,7 +1,7 @@
 package dao;
 
 
-import entity.Order;
+import spring.entity.Order;
 
 import javax.persistence.EntityManager;
 
