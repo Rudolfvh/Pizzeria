@@ -1,6 +1,7 @@
 package spring.service;
 
-import dao.PizzaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import spring.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
 import spring.entity.Pizza;
 import spring.mapper.CreatePizzaMapper;
@@ -17,6 +18,7 @@ public class PizzaService {
     private final PizzaMapper pizzaMapper;
     private final PizzaRepository pizzaRepository;
 
+    @Autowired
     public PizzaService(CreatePizzaMapper createPizzaMapper, PizzaMapper pizzaMapper,
                         PizzaRepository pizzaRepository){
         this.createPizzaMapper = createPizzaMapper;

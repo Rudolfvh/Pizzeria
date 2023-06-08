@@ -1,6 +1,6 @@
 package spring.service;
 
-import dao.CustomerRepository;
+import spring.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.dto.CreateCustomerDto;

@@ -1,7 +1,8 @@
 package spring.service;
 
 
-import dao.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import spring.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import spring.dto.OrderDto;
 import spring.mapper.CreateOrderMapper;
@@ -18,6 +19,7 @@ public class OrderService {
     private final OrderMapper orderMapper;
     private final OrderRepository orderRepository;
 
+    @Autowired
     public OrderService(CreateOrderMapper createOrderMapper, OrderMapper orderMapper,
     OrderRepository orderRepository){
         this.createOrderMapper = createOrderMapper;
