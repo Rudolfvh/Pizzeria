@@ -2,7 +2,7 @@ package spring.mapper;
 
 import org.springframework.stereotype.Component;
 import spring.dto.PizzaDto;
-import spring.entity.Pizza;
+import spring.database.entity.Pizza;
 
 
 @Component

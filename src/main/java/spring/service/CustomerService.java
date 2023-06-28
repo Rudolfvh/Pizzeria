@@ -1,14 +1,16 @@
 package spring.service;
 
-import spring.repository.CustomerRepository;
+import spring.database.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.dto.CreateCustomerDto;
 import spring.dto.CustomerDto;
-import spring.entity.Customer;
+import spring.database.entity.Customer;
+import spring.dto.LoginDto;
 import spring.mapper.CreateCustomerMapper;
 import spring.mapper.CustomerMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -30,12 +32,9 @@ public class CustomerService {
         return customerMapper.mapFrom(customerRepository.save(customerEntity));
     }
 
-    public Optional<CustomerDto> login(String phone, String password) {
-        return customerRepository.findAll()
-                .stream()
-                .filter(i -> i.getPhone().equals(phone)
-                             && i.getPassword().equals(password))
-                .map(customerMapper::mapFrom).findFirst();
+    public Optional<CustomerDto> login(LoginDto loginDto) {
+        return customerRepository.findByPhoneAndPassword(loginDto.phone(),loginDto.password())
+                .map(customerMapper::mapFrom);
     }
 
     public Optional<Customer> find(String phone, String password) {
@@ -43,5 +42,9 @@ public class CustomerService {
                 .stream()
                 .filter(i -> i.getPhone().equals(phone)
                              && i.getPassword().equals(password)).findFirst();
+    }
+    public List<CustomerDto> findAll() {
+        return customerRepository.findAll().stream()
+                .map(customerMapper::mapFrom).toList();
     }
 }

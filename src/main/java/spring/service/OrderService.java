@@ -2,7 +2,7 @@ package spring.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import spring.repository.OrderRepository;
+import spring.database.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import spring.dto.OrderDto;
 import spring.mapper.CreateOrderMapper;

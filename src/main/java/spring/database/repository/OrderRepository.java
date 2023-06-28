@@ -1,4 +1,4 @@
-package spring.repository;
+package spring.database.repository;
 
 
 
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import spring.entity.Order;
+import spring.database.entity.Order;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,9 +1,9 @@
 package spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import spring.repository.PizzaRepository;
+import spring.database.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
-import spring.entity.Pizza;
+import spring.database.entity.Pizza;
 import spring.mapper.CreatePizzaMapper;
 import spring.mapper.PizzaMapper;
 

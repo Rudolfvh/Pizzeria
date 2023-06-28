@@ -2,7 +2,7 @@ package spring.mapper;
 
 import org.springframework.stereotype.Component;
 import spring.dto.CustomerDto;
-import spring.entity.Customer;
+import spring.database.entity.Customer;
 
 @Component
 public class CustomerMapper implements Mapper<Customer, CustomerDto> {

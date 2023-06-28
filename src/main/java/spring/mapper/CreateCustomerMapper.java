@@ -2,8 +2,8 @@ package spring.mapper;
 
 import org.springframework.stereotype.Component;
 import spring.dto.CreateCustomerDto;
-import spring.entity.Customer;
-import spring.entity.Role;
+import spring.database.entity.Customer;
+import spring.database.entity.Role;
 
 
 @Component

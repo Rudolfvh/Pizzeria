@@ -2,7 +2,7 @@ package spring.mapper;
 
 import org.springframework.stereotype.Component;
 import spring.dto.CreateOrderDto;
-import spring.entity.Order;
+import spring.database.entity.Order;
 
 @Component
 public class CreateOrderMapper implements Mapper<CreateOrderDto, Order> {

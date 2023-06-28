@@ -1,6 +1,6 @@
 package spring.dto;
 
-import spring.entity.Role;
+import spring.database.entity.Role;
 import lombok.Builder;
 import lombok.Value;
 
