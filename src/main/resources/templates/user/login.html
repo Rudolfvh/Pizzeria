@@ -7,15 +7,19 @@
 <body>
 <form action="/login" method="post">
     <label for="phone">Phone:
-        <input id="phone" type="text" name="phone">
+        <input id="phone" type="text" name="phone" required>
     </label><br/><br/>
     <label for="password">Password:
-        <input id="password" type="password" name="password">
+        <input id="password" type="password" name="password" required>
     </label><br/><br/>
     <button type="submit">Login</button>
-</form><br/>
+</form>
+<br/>
 <form action="/login/registration">
     <button type="submit">Registration</button>
 </form>
+<div style="color: red" th:if="${param.error}">
+    Invalid phone or password
+</div>
 </body>
 </html>

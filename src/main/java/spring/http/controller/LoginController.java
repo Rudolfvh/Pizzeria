@@ -39,7 +39,6 @@ public class LoginController {
         Optional<CustomerDto> user = customerService.login(loginDto);
         if(user.isPresent()) {
             redirectAttributes.addFlashAttribute("user", user.get());
-            var id = user.get().getId();
             if(user.get().getRole().equals(Role.ADMIN)) {
                 return "redirect:/admin/customers";
             } else {
