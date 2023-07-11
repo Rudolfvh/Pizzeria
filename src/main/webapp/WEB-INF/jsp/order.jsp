@@ -9,7 +9,7 @@
 <head>
     <title>Title</title>
 </head>
-<form action="${pageContext.request.contextPath}/order" method="post">
+<form th:action="/order" method="post">
     <input type="radio" name="pizza_name" value="Цыплёнок барбекю" checked />Цыплёнок барбекю
     <input type="radio" name="pizza_name" value="Ранч пицца" checked />Ранч пицца
     <br>

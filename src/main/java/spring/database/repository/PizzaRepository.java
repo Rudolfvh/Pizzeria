@@ -14,21 +14,13 @@ import java.util.Optional;
 @Repository
 public interface PizzaRepository extends JpaRepository<Pizza, Integer> {
 
-    String FIND_ALL_HQL = """
-            select * FROM pizza p
-            """;
-
-    String FIND_BY_ID_HQL = FIND_ALL_HQL + """
-             WHERE p.pizza_id = :id
-            """;
-
     @Override
-    @Query(FIND_BY_ID_HQL)
+    @Query("from Pizza p where p.pizzaId = :id")
     @NotNull
     Optional<Pizza> findById(@Param("id") @NotNull Integer id);
 
     @Override
-    @Query(FIND_ALL_HQL)
+    @Query("from Pizza")
     @NotNull
     List<Pizza> findAll();
 }

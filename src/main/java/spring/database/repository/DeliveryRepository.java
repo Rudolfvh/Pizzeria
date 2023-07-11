@@ -22,12 +22,12 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Integer> {
             """;
 
     @Override
-    @Query(FIND_BY_ID_HQL)
+    @Query("from Delivery d where d.deliveryId = :id")
     @NotNull
     Optional<Delivery> findById(@Param("id") @NotNull Integer id);
 
     @Override
-    @Query(FIND_ALL_HQL)
+    @Query("from Delivery")
     @NotNull
     List<Delivery> findAll();
 }

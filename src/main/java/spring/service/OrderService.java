@@ -2,8 +2,12 @@ package spring.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
 import spring.database.repository.OrderRepository;
 import org.springframework.stereotype.Service;
+import spring.dto.CreateCustomerDto;
+import spring.dto.CreateOrderDto;
+import spring.dto.CustomerDto;
 import spring.dto.OrderDto;
 import spring.mapper.CreateOrderMapper;
 import spring.mapper.OrderMapper;
@@ -27,9 +31,12 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public OrderDto create(CreateOrderDto orderDto) {
+        var orderEntity = createOrderMapper.mapFrom(orderDto);
+        return orderMapper.mapFrom(orderRepository.save(orderEntity));
+    }
     public List<OrderDto> findByCustomerId(Long customerId) {
-        return orderRepository.findAll().stream()
-                .filter(i -> i.getCustomer().getUserId() == customerId)
+        return orderRepository.findByCustomerId(customerId.intValue()).stream()
                 .map(orderMapper::mapFrom).collect(Collectors.toList());
     }
 }

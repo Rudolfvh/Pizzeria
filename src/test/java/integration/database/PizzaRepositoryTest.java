@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import spring.ApplicationRunner;
 import spring.database.entity.Pizza;
 import spring.database.repository.PizzaRepository;
-import spring.utils.ApplicationRunner;
 
 import java.util.List;
 import java.util.stream.Collectors;

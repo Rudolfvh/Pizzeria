@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "delivery", schema = "public")
+@Table(name = "delivery_list", schema = "public")
 public class Delivery implements Serializable, BaseEntity<Long> {
 
     @Id

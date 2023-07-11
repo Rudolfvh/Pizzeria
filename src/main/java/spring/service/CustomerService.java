@@ -37,11 +37,10 @@ public class CustomerService {
                 .map(customerMapper::mapFrom);
     }
 
-    public Optional<Customer> find(String phone, String password) {
+    public Optional<Customer> find(String phone) {
         return customerRepository.findAll()
                 .stream()
-                .filter(i -> i.getPhone().equals(phone)
-                             && i.getPassword().equals(password)).findFirst();
+                .filter(i -> i.getPhone().equals(phone)).findFirst();
     }
     public List<CustomerDto> findAll() {
         return customerRepository.findAll().stream()

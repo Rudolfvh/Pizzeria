@@ -1,7 +1,6 @@
 package spring.exception;
 
 import lombok.Getter;
-import validation.Error;
 
 import java.util.List;
 
