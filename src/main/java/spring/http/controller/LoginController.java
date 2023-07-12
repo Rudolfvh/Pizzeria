@@ -40,7 +40,7 @@ public class LoginController {
         if(user.isPresent()) {
             redirectAttributes.addFlashAttribute("user", user.get());
             if(user.get().getRole().equals(Role.ADMIN)) {
-                return "redirect:/admin/customers";
+                return "redirect:/admin";
             } else {
                 return "redirect:/user";
             }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order</title>
+</head>
+<body>
+<form  th:action="@{/order}" method="post" >
+    <label>
+        <select name="pizza_name">
+            <option th:each="pizza : ${pizzas}">
+                <td><span th:text="${pizza.getName()}"></span></td>
+            </option>
+        </select>
+    </label>
+    <button type="submit">Order</button>
+</form>
+<form th:action="@{/admin}" method="get">
+    <button type="submit">Back</button>
+</form>
+</body>
+</html>

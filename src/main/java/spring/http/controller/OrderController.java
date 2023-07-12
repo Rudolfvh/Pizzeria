@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import spring.database.entity.Role;
 import spring.dto.CreateOrderDto;
 import spring.dto.CustomerDto;
 import spring.service.CustomerService;
@@ -24,8 +25,14 @@ public class OrderController {
     private final PizzaService pizzaService;
 
     @GetMapping()
-    public String orderPage() {
-        return "orders/makeOrder";
+    public String orderPage(Model model, @ModelAttribute("user") CustomerDto customerDto) {
+        model.addAttribute("pizzas", pizzaService.findAll());
+        if(customerDto.getRole().equals(Role.ADMIN)) {
+            return "admins/adminOrder";
+        }
+        else{
+            return "orders/makeOrder";
+        }
     }
 
     @PostMapping()
@@ -37,6 +44,6 @@ public class OrderController {
                 .build();
         orderService.create(orderDto);
 
-        return "user/orderlist";
+        return "redirect:user/orderlist";
     }
 }

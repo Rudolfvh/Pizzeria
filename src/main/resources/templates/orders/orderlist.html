@@ -5,12 +5,16 @@
     <title>OrderList</title>
 </head>
 <body>
+<form th:action="@{/user}" method="get">
+    <button type="submit">Back</button>
+</form>
+<br/>
 <tr th:each="order : ${orders}">
     <td th:text="${order.getPizza().getName()}"></td>
+    <td th:text="${order.getPizza().getCost()}"></td>
+    <br/>
     <td th:text="${order.getDateGet()}"></td>
     <br/>
 </tr>
-
-</label>
 </body>
 </html>

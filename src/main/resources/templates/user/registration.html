@@ -5,6 +5,9 @@
   <title>User</title>
 </head>
 <body>
+<form th:action="@{/login}" method="get">
+    <button type="submit">Back</button>
+</form><br/>
 <form th:action="@{/login/registration}" method="post" enctype="multipart/form-data" th:object="${userCreate}">
   <div>
     <label for="name">Name:
@@ -13,7 +16,7 @@
     <label for="phone">Phone:
       <input id="phone" type="text" name="phone" th:value="*{phone}">
     </label>
-  </div><br/>
+  </div>
     <label for="password">Password:
       <input id="password" type="password" name="password" th:value="*{password}">
     </label><br/>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+</head>
+<body>
+<form th:action="@{admin/addNewPizza}" method="get">
+  <button type="submit">AddNewPizza</button>
+</form>
+<form th:action="@{/order}" method="get">
+  <button type="submit">Order</button>
+</form>
+<form th:action="@{admin/orderlist}" method="get">
+  <button type="submit">OrderList</button>
+</form>
+<form th:action="@{login/logout}" method="post">
+  <button type="submit">Logout</button>
+</form>
+</body>
+</html>

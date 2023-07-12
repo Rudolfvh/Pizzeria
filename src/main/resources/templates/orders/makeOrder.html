@@ -5,16 +5,13 @@
 </head>
 <body>
 <form th:action="@{/order}" method="post">
-    <input type="radio" name="pizza_name" value="Цыплёнок барбекю" checked />Цыплёнок барбекю
-    <input type="radio" name="pizza_name" value="Ранч пицца" checked />Ранч пицца
-    <br>
-    <input type="radio" name="pizza_name" value="Острая чили" checked />Острая чили
-    <input type="radio" name="pizza_name" value="Пепперони" checked />Пепперони
-    <br>
-    <input type="radio" name="pizza_name" value="Цыплёнок дорблю" checked />Цыплёнок дорблю
-    <input type="radio" name="pizza_name" value="Гавайская" checked />Гавайская
-    <br>
-
+    <label>
+    <select name="pizza_name">
+    <option th:each="pizza : ${pizzas}">
+        <td><span th:text="${pizza.getName()}"> Title </span></td>
+    </option>
+    </select>
+    </label>
     <button type="submit">Order</button>
 </form>
 <form th:action="@{/user}" method="get">

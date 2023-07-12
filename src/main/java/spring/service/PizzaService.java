@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import spring.database.repository.PizzaRepository;
 import org.springframework.stereotype.Service;
 import spring.database.entity.Pizza;
+import spring.dto.CreatePizzaDto;
+import spring.dto.PizzaDto;
 import spring.mapper.CreatePizzaMapper;
 import spring.mapper.PizzaMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -24,6 +27,14 @@ public class PizzaService {
         this.createPizzaMapper = createPizzaMapper;
         this.pizzaMapper = pizzaMapper;
         this.pizzaRepository = pizzaRepository;
+    }
+
+    public PizzaDto create(CreatePizzaDto pizzaDto){
+        var pizzaEntity = createPizzaMapper.mapFrom(pizzaDto);
+        return pizzaMapper.mapFrom(pizzaRepository.save(pizzaEntity));
+    }
+    public List<Pizza> findAll(){
+        return pizzaRepository.findAll();
     }
 
     public Optional<Pizza> find(String name){
