@@ -4,6 +4,10 @@
     <title>Order</title>
 </head>
 <body>
+<form th:action="@{/admin}" method="get">
+    <button type="submit">Back</button>
+</form>
+<br/>
 <form th:action="@{/order}" method="post">
     <label>
         <select name="pizza_name">
@@ -13,9 +17,6 @@
         </select>
     </label>
     <button type="submit">Order</button>
-</form>
-<form th:action="@{/admin}" method="get">
-    <button type="submit">Back</button>
 </form>
 </body>
 </html>

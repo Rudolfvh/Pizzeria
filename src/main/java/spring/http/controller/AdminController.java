@@ -26,7 +26,7 @@ public class AdminController {
     }
 
     @GetMapping("/orderlist")
-    public String orderList(Model model, @ModelAttribute("user") CustomerDto customerDto){
+    public String orderList(Model model, @ModelAttribute("user") CustomerDto customerDto) {
         model.addAttribute("orders", orderService.findByCustomerId(customerDto.getId().longValue()));
         return "admins/adminOrderList";
     }
@@ -38,15 +38,19 @@ public class AdminController {
 
     @PostMapping("/addNewPizza")
     public String addNewPizza(@ModelAttribute("name") String name,
-                              @ModelAttribute("cost") BigDecimal cost){
+                              @ModelAttribute("cost") BigDecimal cost) {
 
-        var pizzaDto = CreatePizzaDto.builder()
-                        .name(name)
-                                .cost(cost)
-                .build();
-        pizzaService.create(pizzaDto);
+        if (pizzaService.find(name).isPresent()) {
+            return "admins/addNewPizza";
+        } else {
+            var pizzaDto = CreatePizzaDto.builder()
+                    .name(name)
+                    .cost(cost)
+                    .build();
+            pizzaService.create(pizzaDto);
 
-        return "admins/admin";
+            return "redirect:/admin";
+        }
     }
 
 }
