@@ -13,6 +13,7 @@ import spring.service.PizzaService;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,25 +26,29 @@ public class OrderController {
     private final PizzaService pizzaService;
 
     @GetMapping()
-    public String orderPage(Model model, @ModelAttribute("user") CustomerDto customerDto) {
+    public String orderPage(Model model, @ModelAttribute("user") Optional<CustomerDto> customerDto) {
         model.addAttribute("pizzas", pizzaService.findAll());
-        if(customerDto.getRole().equals(Role.ADMIN)) {
-            return "admins/adminOrder";
-        }
-        else{
-            return "orders/makeOrder";
-        }
+
+            if (customerDto.get().getRole().equals(Role.ADMIN)) {
+                return "admins/adminOrder";
+            } else {
+                return "orders/makeOrder";
+            }
     }
 
     @PostMapping()
     public String makeOrder(@ModelAttribute("pizza_name") String pizza,
-                            @ModelAttribute("user") CustomerDto customerDto, Model model){
+                            @ModelAttribute("user") CustomerDto customerDto, Model model) {
         var orderDto = CreateOrderDto.builder().customer(customerService.find(customerDto.getPhone()).get())
                 .pizza(pizzaService.find(pizza).get())
                 .dateGet(Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime())
                 .build();
         orderService.create(orderDto);
 
-        return "redirect:user/orderlist";
+        if (customerDto.getRole().equals(Role.ADMIN)) {
+            return "redirect:admin/orderlist";
+        } else {
+            return "redirect:user/orderlist";
+        }
     }
 }

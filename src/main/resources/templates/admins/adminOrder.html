@@ -4,11 +4,11 @@
     <title>Order</title>
 </head>
 <body>
-<form  th:action="@{/order}" method="post" >
+<form th:action="@{/order}" method="post">
     <label>
         <select name="pizza_name">
             <option th:each="pizza : ${pizzas}">
-                <td><span th:text="${pizza.getName()}"></span></td>
+                <td><span th:text="${pizza.getName()}"> Title </span></td>
             </option>
         </select>
     </label>

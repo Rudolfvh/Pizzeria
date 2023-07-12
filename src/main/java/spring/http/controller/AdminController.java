@@ -28,7 +28,7 @@ public class AdminController {
     @GetMapping("/orderlist")
     public String orderList(Model model, @ModelAttribute("user") CustomerDto customerDto){
         model.addAttribute("orders", orderService.findByCustomerId(customerDto.getId().longValue()));
-        return "orders/orderlist";
+        return "admins/adminOrderList";
     }
 
     @GetMapping("/addNewPizza")
