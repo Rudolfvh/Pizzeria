@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order</title>
+</head>
+<body>
+<form th:action="@{/order}" method="post">
+    <input type="radio" name="pizza_name" value="Цыплёнок барбекю" checked />Цыплёнок барбекю
+    <input type="radio" name="pizza_name" value="Ранч пицца" checked />Ранч пицца
+    <br>
+    <input type="radio" name="pizza_name" value="Острая чили" checked />Острая чили
+    <input type="radio" name="pizza_name" value="Пепперони" checked />Пепперони
+    <br>
+    <input type="radio" name="pizza_name" value="Цыплёнок дорблю" checked />Цыплёнок дорблю
+    <input type="radio" name="pizza_name" value="Гавайская" checked />Гавайская
+    <br>
+
+    <button type="submit">Order</button>
+</form>
+<form th:action="@{/user}" method="get">
+    <button type="submit">Back</button>
+</form>
+</body>
+</html>

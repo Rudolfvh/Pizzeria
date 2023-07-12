@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import spring.ApplicationRunner;
+import spring.App;
 import spring.database.entity.Pizza;
 import spring.database.repository.PizzaRepository;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = {TestApplicationRunner.class, ApplicationRunner.class})
+@SpringBootTest(classes = {TestApplicationRunner.class, App.class})
 @Transactional
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class PizzaRepositoryTest {

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User</title>
+</head>
+<body>
+<form th:action="@{/login/registration}" method="post" enctype="multipart/form-data" th:object="${userCreate}">
+  <div>
+    <label for="name">Name:
+      <input id="name" type="text" name="name" th:value="*{name}">
+    </label><br/>
+    <label for="phone">Phone:
+      <input id="phone" type="text" name="phone" th:value="*{phone}">
+    </label>
+  </div><br/>
+    <label for="password">Password:
+      <input id="password" type="password" name="password" th:value="*{password}">
+    </label><br/>
+  </div>
+  <div>
+    <label for="role">Role:
+      <select id="role" name="role">
+        <option th:each="role : ${roles}"
+                th:value="${role}"
+                th:selected="${role == userCreate.role}"
+                th:text="${role}">Role</option>
+      </select>
+    </label>
+  </div><br/>
+  <button type="submit">Register</button>
+</form>
+<div th:if="${errors}">
+  <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error message</p>
+</div>
+</body>
+</html>
